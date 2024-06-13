@@ -41,4 +41,20 @@ class user_model():
         con.commit()
         con.close()
         return "User Created Succesfully"
+    
+    # to verify user credentials
+    def user_Verification(self, username, password):
+        conn = sqlite3.connect('users_cred.db')
+        cur = conn.cursor()
+        
+        # Check if username and password combination exists
+        cur.execute("SELECT COUNT(*) FROM users WHERE username = ? AND password = ?", (username, password))
+        count = cur.fetchone()[0]
+
+        conn.close()
+
+        if count > 0:
+            return "User verified successfully"
+        else:
+            return "Invalid username or password"
         
