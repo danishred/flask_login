@@ -87,7 +87,31 @@ class user_model():
                 # Update user verification status
                 cursor.execute("UPDATE users SET is_active = TRUE WHERE email = %s",(email,))
         
+    # deleting a user credenials
+    def user_delete_model(self,email):
+      
+        # Establishing Connection
+        url = os.getenv("POSTGRES_URL")
+        connection = psycopg2.connect(url)
+        with connection:
+            with connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
 
+                # checking email
+                cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+
+                # Storing count of occurence
+                user = cursor.fetchone()
+    
+                if not user:
+        
+                    return jsonify({'Prompt': 'User not found'}), 404
+
+                # deleteing the user 
+                cursor.execute("DELETE FROM users WHERE email = %s", (email,))
+               
+                if user==0:
+                    return jsonify({'message': 'User deleted successfully'})
+ 
     
 
             

@@ -52,3 +52,4 @@ def confirm_email(token):
         return render_template("confirmation.html") 
     except SignatureExpired:
         return jsonify({"Prompt": "The confirmation link has expired."}), 400
+
