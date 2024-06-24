@@ -88,7 +88,7 @@ def user_login_controller():
 
 
 # Controller for deleting a user Credentials
-@app.route('/delete_account', methods=['DELETE'])
+@app.route('/deleteaccount', methods=['DELETE'])
 def delete_account():
     email = request.json.get('email')
     if not email:
